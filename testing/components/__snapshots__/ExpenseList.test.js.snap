@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing React Router Component 1`] = `
+<div>
+  <h1>
+    ExpenseList
+  </h1>
+  <Connect(Item)
+    amount={50000}
+    createdAt={49}
+    description="debit"
+    id={1}
+    key="1"
+    note="gello"
+  />
+  <Connect(Item)
+    amount={40220}
+    createdAt={2}
+    description="credit"
+    id={2}
+    key="2"
+    note=""
+  />
+  <Connect(Item)
+    amount={1452}
+    createdAt={45}
+    description="imei"
+    id={3}
+    key="3"
+    note="hello"
+  />
+</div>
+`;

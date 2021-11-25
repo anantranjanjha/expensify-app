@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing React Router Component 1`] = `
+<div>
+  <Link
+    to="/edit/undefined"
+  >
+    <h1 />
+  </Link>
+  <p>
+     - 
+  </p>
+</div>
+`;
