@@ -12,18 +12,6 @@ import './styles/styles.scss';
 
 const store = configureStore();
 
-store.dispatch(AddExpenseHandle({ description : 'water bill' , amount : 5000, createdAt : 1000}));
-store.dispatch(AddExpenseHandle({ description : 'Rent bill', amount : 12586, createdAt : 2000}));
-store.dispatch(AddExpenseHandle({ description : 'Gas bill', amount : 500004, createdAt : 500}));
-store.dispatch(setTextFilter('water'));
-
-console.log(store.getState());
-const state =store.getState();
-
-const visibleExpenses = getVisibleExpenses(state.expenses,state.filters);
-
-console.log(visibleExpenses);
-
 const jsx = (
     <Provider store ={store}>
         <ReactRouter />
