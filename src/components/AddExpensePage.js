@@ -14,7 +14,7 @@ const AddExpensePAge =(props) =>(
     }
     />
     </div>
-)
+);
 
 
 export default connect()(AddExpensePAge);

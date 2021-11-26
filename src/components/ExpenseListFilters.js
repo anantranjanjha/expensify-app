@@ -34,7 +34,9 @@ onFocusChange = (calenderfocused)=>{
             <option value="date">Date</option>
             <option value="amount">Amount</option>
             </select>
-            <DateRangePicker 
+             <DateRangePicker 
+            startDateId="start_date_input"
+            endDateId="end_date_input"
             startDate={this.props.filters.startDate}
             endDate={this.props.filters.endDate}
             onDatesChange={this.onDatesChangeHandle}

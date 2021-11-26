@@ -21,12 +21,10 @@ export const SortByDate = (() => ({
 
 export const setStartDate = ((value = undefined) => ({
     type: "START_DATE",
-
     value,
 }));
 
 export const setEndDate = ((value = undefined) => ({
     type: "END_DATE",
     value,
-
 }));
