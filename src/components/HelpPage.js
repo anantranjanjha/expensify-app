@@ -1,8 +1,8 @@
 import React from "react"
 
-const HelpPage =() =>(
+const HelpPage = () => (
     <div>
-    Help Page Showing
+        Help Page Showing
     </div>
 )
 

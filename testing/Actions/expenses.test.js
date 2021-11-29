@@ -42,8 +42,6 @@ test('Edit Expense Handle', () => {
     });
 });
 
-
-
 const expense = {
     description: 'moterbill',
     amount: 200,

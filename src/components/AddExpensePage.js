@@ -4,15 +4,15 @@ import ExpenseForm from "./ExpenseForm";
 import { AddExpenseHandle } from "../actions/expenses";
 
 
-const AddExpensePAge =(props) =>(
+const AddExpensePAge = (props) => (
     <div>
-    <ExpenseForm 
-    onSubmit={(expense)=>{
-        props.dispatch(AddExpenseHandle(expense));
-        props.history.push('/');
-    }
-    }
-    />
+        <ExpenseForm
+            onSubmit={(expense) => {
+                props.dispatch(AddExpenseHandle(expense));
+                props.history.push('/');
+            }
+            }
+        />
     </div>
 );
 

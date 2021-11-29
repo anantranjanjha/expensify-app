@@ -22,10 +22,10 @@ export const DeleteExpenseHandle = ((id) => ({
     id,
 }));
 
-export const EditExpenseHandle = ((id,expense) => ({
+export const EditExpenseHandle = ((id, expense) => ({
 
-        type: "EDIT_EXPENSE",
-        id,
-        expense,
-    
+    type: "EDIT_EXPENSE",
+    id,
+    expense,
+
 }));
