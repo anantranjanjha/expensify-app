@@ -14,6 +14,7 @@ const ExpensesSummary = (props) =>{
     );
 };
 
+
 const mapstoreToProps = (state) => {
     return {
         expenses: SelectorExpense(state.expenses, state.filters),
