@@ -5,13 +5,15 @@ const webpack=require('webpack');
 
 process.env.NODE_ENV= process.env.NODE_ENV || 'development';
 
+console.log(process.env.NODE_ENV);
+
 if(process.env.NODE_ENV==='development')
     {
         require('dotenv').config({
             path: '.env.production'
-        })
+        });
     }
-    
+
 module.exports = (env) => {
     const isProduction = env === "production";
     const CSSExtract = new ExtractTextPlugin('styles.css');
