@@ -2,9 +2,20 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack=require('webpack');
 
+
+process.env.NODE_ENV= process.env.NODE_ENV || 'development';
+
+if(process.env.NODE_ENV==='development')
+    {
+        require('dotenv').config({
+            path: '.env.production'
+        })
+    }
+    
 module.exports = (env) => {
     const isProduction = env === "production";
     const CSSExtract = new ExtractTextPlugin('styles.css');
+
     return {
         entry: './src/app.js',
         output: {
