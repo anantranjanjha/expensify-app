@@ -31,7 +31,7 @@ export const StartAddExpense = (expenseKart = {})=>{
     }
 }
 
-export const DeleteExpenseHandle = ((id) => ({
+const DeleteExpenseHandle = ((id) => ({
     type: "DELETE_EXPENSE",
     id,
 }));
@@ -45,13 +45,24 @@ export const StartDeleteExpenseHandle =(id) =>{
     }
 }
 
-export const EditExpenseHandle = ((id, expense) => ({
+const EditExpenseHandle = ((id, expense) => ({
 
     type: "EDIT_EXPENSE",
     id,
     expense,
 
 }));
+
+export const StartEditExpenseHandle = (id,expense)=>{
+    return (dispatch)=>{
+        set(ref(database, `expenses/${id}`), {
+            ...expense
+        })
+        .then(()=>{
+            dispatch(EditExpenseHandle(id,expense));
+        });
+    }
+}
 
 const SetExpenseHandle = (expenses) =>({
     type: "SET_EXPENSE",
