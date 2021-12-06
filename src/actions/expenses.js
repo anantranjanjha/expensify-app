@@ -1,5 +1,5 @@
 import { v4 as uuidv4, v4 } from 'uuid';
-import { set ,ref ,push, get ,child} from '@firebase/database';
+import { set ,ref ,push, get ,child, remove } from '@firebase/database';
 import database from '../firebase/firebase'
 import expenses from '../selectors/expenses';
 
@@ -35,6 +35,15 @@ export const DeleteExpenseHandle = ((id) => ({
     type: "DELETE_EXPENSE",
     id,
 }));
+
+export const StartDeleteExpenseHandle =(id) =>{
+    return (dispatch)=>{
+        set(ref(database, `expenses/${id}`), {})
+        .then(()=>{
+            dispatch(DeleteExpenseHandle(id));
+        });    
+    }
+}
 
 export const EditExpenseHandle = ((id, expense) => ({
 
