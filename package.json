@@ -5,10 +5,10 @@
   "license": "MIT",
   "scripts": {
     "dev-server": "webpack serve --mode development --env development",
-    "build:dev": "webpack",
+    "build:dev": "webpack --watch",
     "build:prod": "webpack --mode production --env production",
     "test": "jest --config=jest.config.json",
-    "start": "node server/server.js",
+    "start": "node server/server.js --watch",
     "heroku-postbuild": "yarn run build:prod"
   },
   "dependencies": {

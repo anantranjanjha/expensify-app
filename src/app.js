@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import ReactRouter from './components/ReactRouter';
+import { StartSetExpense } from './actions/expenses';
 import configureStore from './store/configureStore';
 import '../node_modules/react-dates/lib/css/_datepicker.css';
 import 'normalize.css/normalize.css';
@@ -16,4 +17,7 @@ const jsx = (
     </Provider>
 );
 
+ReactDOM.render(jsx, document.getElementById('app'));
+
+store.dispatch(StartSetExpense());
 ReactDOM.render(jsx, document.getElementById('app'));

@@ -1,6 +1,7 @@
 import { v4 as uuidv4, v4 } from 'uuid';
-import { set ,ref ,push} from '@firebase/database';
+import { set ,ref ,push, get ,child} from '@firebase/database';
 import database from '../firebase/firebase'
+import expenses from '../selectors/expenses';
 
 export const AddExpenseHandle = (
     (expenses) => ({
@@ -42,3 +43,30 @@ export const EditExpenseHandle = ((id, expense) => ({
     expense,
 
 }));
+
+const SetExpenseHandle = (expenses) =>({
+    type: "SET_EXPENSE",
+    expenses
+});
+
+export const StartSetExpense = () =>{
+    return (dispatch)=>{
+        const dbRef = ref(database);
+            get(child(dbRef,'expenses')).then((snapshot) => {
+            if (snapshot.exists()) {
+                const expensess=[];
+                snapshot.forEach((childSnapshot)=>{
+                    expensess.push({
+                        id:childSnapshot.key,
+                        ...childSnapshot.val()
+                    });
+                });
+                dispatch(SetExpenseHandle(expensess));
+            } else {
+                console.log("No data available");
+            }
+            }).catch((error) => {
+            console.error(error);
+            });
+    }
+}

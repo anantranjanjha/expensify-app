@@ -49,7 +49,7 @@ module.exports = (env) => {
             })
         ],
         target:'web',
-        devtool: isProduction?'source-map':'eval-source-map',
+        devtool: isProduction?'source-map':'inline-source-map',
         devServer: {
             liveReload: true,
             hot: true,
