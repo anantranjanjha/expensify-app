@@ -1,4 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, v4 } from 'uuid';
+import { set ,ref ,push} from '@firebase/database';
 import database from '../firebase/firebase'
 
 export const AddExpenseHandle = (
@@ -13,16 +14,19 @@ export const StartAddExpense = (expenseKart = {})=>{
             description = "",
             note = "",
             amount = "",
-            createdAt = 0
+            createdAt = 0,
         } = expenseKart ;
         const expense = {description,note,amount,createdAt};
-        database.ref('expenses').push(expense)
-        .then((ref)=>{
+        const newPostListRef=ref(database, 'expenses');
+        const newPostRef = push(newPostListRef);
+        set(newPostRef, {
+           ...expense
+        }).then(()=>{
             dispatch(AddExpenseHandle({
-                id: ref.key,
+                id: newPostRef.key,
                 ...expense
-            }));
-        });
+            }))
+        })
     }
 }
 
