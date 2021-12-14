@@ -1,27 +1,25 @@
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack=require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 
 process.env.NODE_ENV= process.env.NODE_ENV || 'development';
-
 
 if(process.env.NODE_ENV==='development')
     {
         require('dotenv').config({
             path: '.env.production'
-        });
+        })
     }
-
+    
 module.exports = (env) => {
-
-    const isProduction= (!!env.production);
-    console.log(isProduction);
+    const isProduction = env === "production";
+    const CSSExtract = new ExtractTextPlugin('styles.css');
     return {
         entry: './src/app.js',
         output: {
             path: path.join(__dirname, 'public' , 'dist'),
-            filename: 'bundle.js',
+            filename: 'bundle.js'
         },
         module: {
             rules: [{
@@ -31,12 +29,27 @@ module.exports = (env) => {
             },
             {
                 test: /\.s?css$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader","sass-loader"],
+                use: CSSExtract.extract({
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        }
+                    ]
+                })
             }
             ]
         },
         plugins: [
-            new MiniCssExtractPlugin(),
+            CSSExtract,
             new webpack.DefinePlugin({
                 'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),
                 'process.env.FIREBASE_AUTH_DOMAIN': JSON.stringify(process.env.FIREBASE_AUTH_DOMAIN),
@@ -48,16 +61,11 @@ module.exports = (env) => {
                 'process.env.FIREBASE_MEASUREMENT_ID': JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID)
             })
         ],
-        target:'web',
-        devtool: isProduction?'source-map':'inline-source-map',
+        devtool: isProduction ? 'source-map' : 'inline-source-map',
         devServer: {
-            liveReload: true,
-            hot: true,
+            contentBase: path.join(__dirname, 'public'),
             historyApiFallback: true,
-            static: {
-                directory: path.join(__dirname, "public"),
-              },
-            
+            publicPath: '/dist/'
         }
     };
 };

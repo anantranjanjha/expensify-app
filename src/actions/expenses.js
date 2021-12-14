@@ -1,7 +1,5 @@
-import { v4 as uuidv4, v4 } from 'uuid';
 import { set ,ref ,push, get ,child, remove } from '@firebase/database';
 import database from '../firebase/firebase'
-import expenses from '../selectors/expenses';
 
 export const AddExpenseHandle = (
     (expenses) => ({
@@ -10,7 +8,7 @@ export const AddExpenseHandle = (
     }));
 
 export const StartAddExpense = (expenseKart = {})=>{
-    return (dispatch)=>{
+    return (dispatch, getState)=>{
         const {
             description = "",
             note = "",
@@ -18,8 +16,10 @@ export const StartAddExpense = (expenseKart = {})=>{
             createdAt = 0,
         } = expenseKart ;
         const expense = {description,note,amount,createdAt};
-        const newPostListRef=ref(database, 'expenses');
+        const uid=getState().auth.uid;
+        const newPostListRef=ref(database, `users/${uid}/expenses`);
         const newPostRef = push(newPostListRef);
+
         set(newPostRef, {
            ...expense
         }).then(()=>{
@@ -37,8 +37,9 @@ const DeleteExpenseHandle = ((id) => ({
 }));
 
 export const StartDeleteExpenseHandle =(id) =>{
-    return (dispatch)=>{
-        set(ref(database, `expenses/${id}`), {})
+    return (dispatch, getState)=>{
+        const uid=getState().auth.uid;
+        set(ref(database, `users/${uid}/expenses/${id}`), {})
         .then(()=>{
             dispatch(DeleteExpenseHandle(id));
         });    
@@ -54,8 +55,9 @@ const EditExpenseHandle = ((id, expense) => ({
 }));
 
 export const StartEditExpenseHandle = (id,expense)=>{
-    return (dispatch)=>{
-        set(ref(database, `expenses/${id}`), {
+    return (dispatch, getState)=>{
+        const uid=getState().auth.uid;
+        set(ref(database, `users/${uid}/expenses/${id}`), {
             ...expense
         })
         .then(()=>{
@@ -70,9 +72,10 @@ const SetExpenseHandle = (expenses) =>({
 });
 
 export const StartSetExpense = () =>{
-    return (dispatch)=>{
-        const dbRef = ref(database);
-            get(child(dbRef,'expenses')).then((snapshot) => {
+    return (dispatch, getState)=>{
+            const dbRef = ref(database);
+            const uid=getState().auth.uid;
+            return get(child(dbRef,`users/${uid}/expenses`)).then((snapshot) => {
             if (snapshot.exists()) {
                 const expensess=[];
                 snapshot.forEach((childSnapshot)=>{
