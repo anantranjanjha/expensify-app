@@ -9,6 +9,7 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import { onAuthStateChanged ,getAuth} from 'firebase/auth';
 import { login, logOut } from './actions/auth';
+import {LoadingPage} from './components/LoadingPage.js';
 
 const store = configureStore();
 
@@ -25,11 +26,13 @@ let hasRendered=false;
 
 const renderApp  =() =>{
     if(!hasRendered){
-        ReactDOM.render(jsx, document.getElementById('app'));
+        ReactDOM.render(jsx , document.getElementById('app'));
         hasRendered=true;
     } 
     
 };
+
+ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 onAuthStateChanged (auth, (user)=>{
     if(user)
